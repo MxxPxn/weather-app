@@ -9,10 +9,17 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
     "typescript": "~5.9.3",
     "vite": "^7.2.4"
   },
   "dependencies": {
-    "openmeteo": "^1.2.3"
+    "classnames": "^2.5.1",
+    "openmeteo": "^1.2.3",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1",
+    "saas": "^1.0.0",
+    "sass": "^1.94.2"
   }
 }
