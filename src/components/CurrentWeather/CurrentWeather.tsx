@@ -1,4 +1,4 @@
-import { convertTemp, convertSpeed, convertPrecipitation } from "../utils/Convert";
+import { convertTemp, convertSpeed, convertPrecipitation } from "../../utils/Convert";
 
 type CurrentWeatherProps = {
     weatherData:{
@@ -11,7 +11,7 @@ type CurrentWeatherProps = {
     unit: "metric" | "imperial";
 };
 
-export function CurrentWeather({ weatherData, unit }: CurrentWeatherProps) {
+ function CurrentWeather({ weatherData, unit }: CurrentWeatherProps) {
     return (
                   <div className="weather__display">
             <div>
@@ -39,4 +39,4 @@ export function CurrentWeather({ weatherData, unit }: CurrentWeatherProps) {
           </div>
     );
 }
-
+export default CurrentWeather;

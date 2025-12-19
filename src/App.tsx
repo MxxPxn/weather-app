@@ -1,22 +1,18 @@
 import { useState, useEffect } from "react";
 import { fetchWeather, fetchWeatherByCity } from "./utils/weatherAPI";
-import {
-  convertTemp,
-  convertSpeed,
-  convertPrecipitation,
-} from "./utils/Convert";
-import Header from "./components/Header";
-import SearchBar from "./components/SearchBar";
-import { CurrentWeather } from "./components/CurrentWeather";
-import DailyForecast from "./components/DailyForecast";
-import HourlyForecast from "./components/HourlyForecast";
+import Header from "./components/Header/Header";
+import SearchBar from "./components/SearchBar/SearchBar";
+import CurrentWeather from "./components/CurrentWeather/CurrentWeather";
+import DailyForecast from "./components/DailyForecast/DailyForecast";
+import HourlyForecast from "./components/HourlyForecast/HourlyForecast";
+import './App.css';
 
 function App() {
   const [city, setCity] = useState<string>("");
   const [weatherData, setWeatherData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-  const [hourlyForrecast, setHourlyForecast] = useState<any>(null);
+  const [hourlyForecast, setHourlyForecast] = useState<any>(null);
   const [dailyForecast, setDailyForecast] = useState<any>(null);
   const [unit, setUnit] = useState<"metric" | "imperial">("metric");
   const [timezone, setTimezone] = useState<string>("UTC");
@@ -91,7 +87,9 @@ function App() {
           setUnit(unit === "metric" ? "imperial" : "metric")
           }
         />
-        <div className="weather__title"> How`s the sky looking today?</div>
+        <div className="weather__title">
+          How`s the sky looking today?
+          </div>
         <SearchBar
           city={city}
           onCityChange={setCity}
@@ -102,9 +100,9 @@ function App() {
         {weatherData && (
           <CurrentWeather weatherData={weatherData} unit={unit} />
         )}
-        {hourlyForrecast && (
+        {hourlyForecast && (
           <HourlyForecast
-            hourlyForecast={hourlyForrecast}
+            hourlyForecast={hourlyForecast}
             unit={unit}
             timezone={timezone}
           />

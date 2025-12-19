@@ -1,4 +1,4 @@
-import { convertTemp } from "../utils/Convert";
+import { convertTemp } from "../../utils/Convert";
 
 type HourlyForecastProps = {
   hourlyForecast: {

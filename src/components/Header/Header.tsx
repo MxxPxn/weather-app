@@ -1,3 +1,5 @@
+import './Header.css';
+
 type HeaderProps = {
     unit: 'metric' | 'imperial';
     onUnitToggle: () => void;
@@ -7,10 +9,11 @@ type HeaderProps = {
     return (
       
          <div className="weather__header">
-          <div className="weather__logo">Weather Now</div>
+          <img className='weather__logo' src="/assets/images/logo.svg" alt="" />
           <button
             className="weather__units"
             onClick={onUnitToggle}>
+            <img className="weather__units-icon" src='/assets/images/icon-units.svg' alt="units" />
             {unit === "metric" ? "°C / km/h" : "°F / mph"}
           </button>
         </div>

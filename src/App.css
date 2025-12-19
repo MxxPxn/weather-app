@@ -1,0 +1,21 @@
+/*Mobile*/
+.weather__wrapper {
+  width: 95vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 48px;
+  padding: 16px 16px 48px;
+  background-color: #02012c;
+  box-sizing: border-box;
+}
+.weather__title {
+  height: 186px;
+  align-self: stretch;
+  flex-grow: 0;
+  font-size: 4rem;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+}
