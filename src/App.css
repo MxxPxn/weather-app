@@ -1,7 +1,5 @@
 /*Mobile*/
 .weather__wrapper {
-  width: 95vw;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
