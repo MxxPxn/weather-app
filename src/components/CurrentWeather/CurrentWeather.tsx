@@ -1,42 +1,80 @@
-import { convertTemp, convertSpeed, convertPrecipitation } from "../../utils/Convert";
+import {
+  convertTemp,
+  convertSpeed,
+  convertPrecipitation,
+} from "../../utils/Convert";
+
+import "./CurrentWeather.css";
 
 type CurrentWeatherProps = {
-    weatherData:{
-        temperature: number;
-        windSpeed: number;
-        precipitation: number;
-        humidity: number;
-        rain: number;
-    };
-    unit: "metric" | "imperial";
+  weatherData: {
+    temperature: number;
+    windSpeed: number;
+    precipitation: number;
+    humidity: number;
+    rain: number;
+  };
+  unit: "metric" | "imperial";
+  city: string;
 };
 
- function CurrentWeather({ weatherData, unit }: CurrentWeatherProps) {
-    return (
-                  <div className="weather__display">
-            <div>
-              Temperature:{" "}
-              {Math.round(convertTemp(weatherData.temperature, unit))}°
-              {unit === "metric" ? "C" : "F"}
-            </div>
-            <div>Humidity: {Math.round(weatherData.humidity)}%</div>
-            <div>
-              Wind Speed:{" "}
-              {Math.round(convertSpeed(weatherData.windSpeed, unit))}{" "}
-              {unit === "metric" ? "km/h" : "mph"}
-            </div>
-            <div>
-              Precipitation:{" "}
-              {Math.round(
-                convertPrecipitation(weatherData.precipitation, unit)
-              )}{" "}
-              {unit === "metric" ? "mm" : "inch"}
-            </div>
-            <div>
-              Rain: {Math.round(convertPrecipitation(weatherData.rain, unit))}{" "}
-              {unit === "metric" ? "mm" : "inch"}
-            </div>
-          </div>
-    );
+function CurrentWeather({ weatherData, unit, city}: CurrentWeatherProps) {
+  const now = new Date();
+  const dayOfWeek = now.toLocaleDateString("en-US", { weekday: "long" });
+  const date = now.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  const weatherItems = [
+    {
+      label: "Temperature",
+      value: Math.round(convertTemp(weatherData.temperature, unit)),
+      unit: unit === "metric" ? "°C" : "°F",
+      city: city || "Your Location",
+      day: dayOfWeek,
+      date: date,
+      isFeatured: true,
+      
+    },
+    {
+      label: "Humidity",
+      value: Math.round(weatherData.humidity),
+      unit: "%"
+    },
+    {
+      label: "Wind Speed",
+      value: Math.round(convertSpeed(weatherData.windSpeed, unit)),
+      unit: unit === "metric" ? "km/h" : "mph"
+    },
+    {
+      label: "Precipitation",
+      value: Math.round(convertPrecipitation(weatherData.precipitation, unit)),
+      unit: unit === "metric" ? "mm" : "inch"
+    },
+    {
+      label: "Rain",
+      value: Math.round(convertPrecipitation(weatherData.rain, unit)),
+      unit: unit === "metric" ? "mm" : "inch"
+    }
+  ];
+
+  return (
+    <div className="weather__info-container">
+      {weatherItems.map((item, index) => (
+  <div key={index} className="weather__display-content">
+    {item.isFeatured ? (
+      <>
+        <div className="weather__location">{item.city}</div>
+        <div className="weather__date">{item.day}, {item.date}</div>
+        <div className="weather__temp">{item.value}{item.unit}</div>
+      </>
+    ) : (
+      <>
+        <span className="weather__label">{item.label}</span>
+        <span className="weather__value">{item.value}{item.unit}</span>
+      </>
+    )}
+  </div>
+))}
+    </div>
+  );
 }
+
 export default CurrentWeather;

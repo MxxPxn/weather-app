@@ -1,0 +1,28 @@
+.weather__info-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    color: rgb(255, 255, 255);
+}
+.weather__display-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 10vh;
+    width: 30vw;
+    margin: 10px;
+    padding: 10px;
+    gap: 32px;
+    background-color:#262540;
+    border-radius: 12px;
+    color: #fff;
+}
+.weather__display-content:first-child {
+    width: 75vw;
+    height: 25vh;
+    background-color: #262540;
+    border-radius: 12px;
+    color: #fff;
+    
+}

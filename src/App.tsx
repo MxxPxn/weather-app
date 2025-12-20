@@ -5,10 +5,11 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import CurrentWeather from "./components/CurrentWeather/CurrentWeather";
 import DailyForecast from "./components/DailyForecast/DailyForecast";
 import HourlyForecast from "./components/HourlyForecast/HourlyForecast";
-import './App.css';
+import "./App.css";
 
 function App() {
   const [city, setCity] = useState<string>("");
+  const [displayCity, setDisplayCity] = useState<string>("");
   const [weatherData, setWeatherData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -27,6 +28,21 @@ function App() {
           const { latitude, longitude } = position.coords;
 
           try {
+            // Reverse geocode to get city name
+            const geoResponse = await fetch(
+              `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+            );
+            const geoData = await geoResponse.json();
+
+            // Set city name if found
+            if (geoData.city) {
+              setDisplayCity(geoData.city);
+            } else if (geoData.locality) {
+              setDisplayCity(geoData.locality);
+            } else {
+              setCity("Your Location");
+            }
+
             const data = await fetchWeather(latitude, longitude);
             setWeatherData(data.weatherData);
             setHourlyForecast(data.hourlyForecast);
@@ -37,6 +53,7 @@ function App() {
             setError(
               "Failed to get location weather: " + (err as Error).message
             );
+            setDisplayCity("Your Location");
             setLoading(false);
           }
         },
@@ -64,8 +81,10 @@ function App() {
 
     setLoading(true);
     setError("");
+
+    const searchedCity = city;
     try {
-      const data = await fetchWeatherByCity(city);
+      const data = await fetchWeatherByCity(searchedCity);
 
       setWeatherData(data.weatherData);
       setHourlyForecast(data.hourlyForecast);
@@ -76,6 +95,8 @@ function App() {
       setError("Failed to fetch weather data");
       setLoading(false);
     }
+    setDisplayCity(city);
+    setCity("");
   };
 
   return (
@@ -87,18 +108,21 @@ function App() {
           setUnit(unit === "metric" ? "imperial" : "metric")
           }
         />
-        <div className="weather__title">
-          How`s the sky looking today?
-          </div>
+        <div className="weather__title">How`s the sky looking today?</div>
         <SearchBar
           city={city}
           onCityChange={setCity}
           onSearch={handleCitySearch}
+           
         />
         {loading && <div className="weather__loading">Loading...</div>}
         {error && <div className="weather__error">{error}</div>}
         {weatherData && (
-          <CurrentWeather weatherData={weatherData} unit={unit} />
+          <CurrentWeather
+            weatherData={weatherData}
+            unit={unit}
+            city={displayCity || "Your Location"}
+          />
         )}
         {hourlyForecast && (
           <HourlyForecast
