@@ -3,8 +3,8 @@ import {
   convertSpeed,
   convertPrecipitation,
 } from "../../utils/Convert";
-
 import "./CurrentWeather.css";
+import { getWeatherIcon } from "../../utils/weatherIcons";
 
 type CurrentWeatherProps = {
   weatherData: {
@@ -13,15 +13,20 @@ type CurrentWeatherProps = {
     precipitation: number;
     humidity: number;
     rain: number;
+    weather_code: number;
   };
   unit: "metric" | "imperial";
   city: string;
 };
 
-function CurrentWeather({ weatherData, unit, city}: CurrentWeatherProps) {
+function CurrentWeather({ weatherData, unit, city }: CurrentWeatherProps) {
   const now = new Date();
   const dayOfWeek = now.toLocaleDateString("en-US", { weekday: "long" });
-  const date = now.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  const date = now.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
   const weatherItems = [
     {
       label: "Temperature",
@@ -31,48 +36,62 @@ function CurrentWeather({ weatherData, unit, city}: CurrentWeatherProps) {
       day: dayOfWeek,
       date: date,
       isFeatured: true,
-      
     },
     {
       label: "Humidity",
       value: Math.round(weatherData.humidity),
-      unit: "%"
+      unit: "%",
     },
     {
       label: "Wind Speed",
       value: Math.round(convertSpeed(weatherData.windSpeed, unit)),
-      unit: unit === "metric" ? "km/h" : "mph"
+      unit: unit === "metric" ? "km/h" : "mph",
     },
     {
       label: "Precipitation",
       value: Math.round(convertPrecipitation(weatherData.precipitation, unit)),
-      unit: unit === "metric" ? "mm" : "inch"
+      unit: unit === "metric" ? "mm" : "inch",
     },
     {
       label: "Rain",
       value: Math.round(convertPrecipitation(weatherData.rain, unit)),
-      unit: unit === "metric" ? "mm" : "inch"
-    }
+      unit: unit === "metric" ? "mm" : "inch",
+    },
   ];
 
   return (
     <div className="weather__info-container">
       {weatherItems.map((item, index) => (
-  <div key={index} className="weather__display-content">
-    {item.isFeatured ? (
-      <>
-        <div className="weather__location">{item.city}</div>
-        <div className="weather__date">{item.day}, {item.date}</div>
-        <div className="weather__temp">{item.value}{item.unit}</div>
-      </>
-    ) : (
-      <>
-        <span className="weather__label">{item.label}</span>
-        <span className="weather__value">{item.value}{item.unit}</span>
-      </>
-    )}
-  </div>
-))}
+        <div key={index} className="weather__display-content">
+          {item.isFeatured ? (
+            <>
+              <div className="weather__location">{item.city}</div>
+              <div className="weather__date">
+                {item.day}, {item.date}
+              </div>
+              <div className="weather__temp-container">
+                <img
+                  src={getWeatherIcon(weatherData.weather_code)}
+                  alt="weather icon"
+                  className="weather__current-icon"
+                />
+                <div className="weather__temp">
+                  {item.value}
+                  {item.unit}
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="weather__display-info"> 
+              <span className="weather__label">{item.label}</span>
+              <span className="weather__value">
+                {item.value}
+                {item.unit}
+              </span>
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 }
