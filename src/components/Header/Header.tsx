@@ -10,12 +10,20 @@ type HeaderProps = {
       
          <div className="weather__header">
           <img className='weather__logo' src="/assets/images/logo.svg" alt="" />
-          <button
-            className="weather__units"
-            onClick={onUnitToggle}>
+
+          <div className="weather__units-container">
             <img className="weather__units-icon" src='/assets/images/icon-units.svg' alt="units" />
-            {unit === "metric" ? "°C / km/h" : "°F / mph"}
-          </button>
+            <select
+              name="units"
+              id="units"
+              onChange={onUnitToggle}
+              className="weather__units"
+              value={unit}
+            >
+              <option value="metric">°C Km/H</option>
+              <option value="imperial">°F Mph</option>
+            </select>
+          </div>
         </div>
     )
   }
