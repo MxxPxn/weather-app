@@ -25,12 +25,18 @@ export const processWeatherData = (response: any) => {
         .variables(1)
         ?.valuesArray()
         ?.slice(currentHour, currentHour + 8) ?? [],
+        weather_code:
+        hourly
+        .variables(2)
+        ?.valuesArray()
+        ?.slice(currentHour, currentHour + 8) ?? [],
   };
 
   const dailyData = {
     maxTemp: daily.variables(0)!.valuesArray(),
     minTemp: daily.variables(1)!.valuesArray(),
     precipitation: daily.variables(2)!.valuesArray(),
+    weather_code: daily.variables(3)!.valuesArray(),
   };
 
   const weather = {
@@ -39,6 +45,7 @@ export const processWeatherData = (response: any) => {
     windSpeed: current.variables(2)!.value(),
     precipitation: current.variables(3)!.value(),
     rain: current.variables(4)!.value(),
+    weather_code: current.variables(5)!.value(),
   };
   return {
     weatherData: weather,
@@ -58,9 +65,10 @@ export const fetchWeather = async (latitude: number, longitude: number) => {
       "wind_speed_10m",
       "precipitation",
       "rain",
+      "weather_code",
     ],
-    hourly: ["temperature_2m", "precipitation"],
-    daily: ["temperature_2m_max", "temperature_2m_min", "precipitation_sum"],
+    hourly: ["temperature_2m", "precipitation", "weather_code"],
+    daily: ["temperature_2m_max", "temperature_2m_min", "precipitation_sum", "weather_code"],
     timezone: "auto",
   };
   const url = "https://api.open-meteo.com/v1/forecast";
