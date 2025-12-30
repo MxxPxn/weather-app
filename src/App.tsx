@@ -51,8 +51,10 @@ function App() {
             setLoading(false);
           } catch (err) {
             setError(
-              "Failed to get location weather: " + (err as Error).message
-            );
+    err instanceof Error 
+      ? `Weather fetch failed: ${err.message}` 
+      : "Failed to get weather data. Please try again."
+  );
             setDisplayCity("Your Location");
             setLoading(false);
           }
@@ -92,7 +94,11 @@ function App() {
       setTimezone(data.timezone);
       setLoading(false);
     } catch (err) {
-      setError("Failed to fetch weather data");
+      setError(
+    err instanceof Error && err.message === "City not found"
+      ? `City "${searchedCity}" not found. Please try another search.`
+      : "Failed to fetch weather data. Please check your connection."
+  );
       setLoading(false);
     }
     setDisplayCity(city);
@@ -105,7 +111,7 @@ function App() {
         <Header
           unit={unit}
           onUnitToggle={() =>
-          setUnit(unit === "metric" ? "imperial" : "metric")
+            setUnit(unit === "metric" ? "imperial" : "metric")
           }
         />
         <div className="weather__title">How`s the sky looking today?</div>
@@ -113,18 +119,33 @@ function App() {
           city={city}
           onCityChange={setCity}
           onSearch={handleCitySearch}
-           
         />
-        {loading && <div className="weather__loading">Loading...</div>}
-        {error && <div className="weather__error">{error}</div>}
-        {weatherData && (
+        {loading && (
+          <div className="weather__loading-overlay">
+            <img
+              src="/assets/images/icon-loading.svg"
+              alt="loading"
+              className="loading-spinner"
+            />
+          </div>
+        )}
+
+        {error && (
+          <div className="weather__error">
+            <p>{error}</p>
+            <button onClick={getUserLocation} className="weather__retry-btn">
+              Try Again
+            </button>
+          </div>
+        )}
+        {!error &&weatherData && (
           <CurrentWeather
             weatherData={weatherData}
             unit={unit}
             city={displayCity || "Your Location"}
           />
         )}
-        {hourlyForecast && (
+        {!error && hourlyForecast && (
           <HourlyForecast
             hourlyForecast={hourlyForecast}
             unit={unit}
@@ -132,7 +153,7 @@ function App() {
           />
         )}
 
-        {dailyForecast && dailyForecast.maxTemp && (
+        {!error && dailyForecast && dailyForecast.maxTemp && (
           <DailyForecast dailyForecast={dailyForecast} unit={unit} />
         )}
       </div>
