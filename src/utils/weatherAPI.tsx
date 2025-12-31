@@ -43,8 +43,8 @@ export const processWeatherData = (response: any) => {
     temperature: current.variables(0)!.value(),
     humidity: current.variables(1)!.value(),
     windSpeed: current.variables(2)!.value(),
-    precipitation: current.variables(3)!.value(),
-    rain: current.variables(4)!.value(),
+    feelsLike: current.variables(3)!.value(),
+    rainChance: current.variables(4)!.value(),
     weather_code: current.variables(5)!.value(),
   };
   return {
@@ -63,8 +63,8 @@ export const fetchWeather = async (latitude: number, longitude: number) => {
       "temperature_2m",
       "relative_humidity_2m",
       "wind_speed_10m",
-      "precipitation",
-      "rain",
+      "apparent_temperature",
+      "precipitation_probability",
       "weather_code",
     ],
     hourly: ["temperature_2m", "precipitation", "weather_code"],

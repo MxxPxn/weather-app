@@ -1,8 +1,4 @@
-import {
-  convertTemp,
-  convertSpeed,
-  convertPrecipitation,
-} from "../../utils/Convert";
+import {convertTemp,convertSpeed} from "../../utils/Convert";
 import "./CurrentWeather.css";
 import { getWeatherIcon } from "../../utils/weatherIcons";
 
@@ -10,9 +6,9 @@ type CurrentWeatherProps = {
   weatherData: {
     temperature: number;
     windSpeed: number;
-    precipitation: number;
     humidity: number;
-    rain: number;
+    feelsLike: number;
+    rainChance: number;
     weather_code: number;
   };
   unit: "metric" | "imperial";
@@ -38,6 +34,11 @@ function CurrentWeather({ weatherData, unit, city }: CurrentWeatherProps) {
       isFeatured: true,
     },
     {
+      label: "Feels Like",
+      value: Math.round(convertTemp(weatherData.feelsLike, unit)),
+      unit: unit === "metric" ? "°C" : "°F",
+    },
+    {
       label: "Humidity",
       value: Math.round(weatherData.humidity),
       unit: "%",
@@ -48,14 +49,9 @@ function CurrentWeather({ weatherData, unit, city }: CurrentWeatherProps) {
       unit: unit === "metric" ? "km/h" : "mph",
     },
     {
-      label: "Precipitation",
-      value: Math.round(convertPrecipitation(weatherData.precipitation, unit)),
-      unit: unit === "metric" ? "mm" : "inch",
-    },
-    {
-      label: "Rain",
-      value: Math.round(convertPrecipitation(weatherData.rain, unit)),
-      unit: unit === "metric" ? "mm" : "inch",
+      label: "Rain Chance",
+      value: Math.round(weatherData.rainChance),
+      unit: "%",
     },
   ];
 
