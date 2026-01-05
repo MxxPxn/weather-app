@@ -55,40 +55,45 @@ function CurrentWeather({ weatherData, unit, city }: CurrentWeatherProps) {
     },
   ];
 
+  const featuredItem = weatherItems.find(item => item.isFeatured);
+  const regularItems = weatherItems.filter(item => !item.isFeatured);
+
   return (
-    <div className="weather__info-container">
-      {weatherItems.map((item, index) => (
-        <div key={index} className="weather__display-content">
-          {item.isFeatured ? (
-            <>
-              <div className="weather__location">{item.city}</div>
-              <div className="weather__date">
-                {item.day}, {item.date}
-              </div>
-              <div className="weather__temp-container">
-                <img
-                  src={getWeatherIcon(weatherData.weather_code)}
-                  alt="weather icon"
-                  className="weather__current-icon"
-                />
-                <div className="weather__temp">
-                  {item.value}
-                  {item.unit}
-                </div>
-              </div>
-            </>
-          ) : (
-            <div className="weather__display-info"> 
+    <>
+      {featuredItem && (
+        <div className="weather__featured-item">
+          <div className="weather__location">{featuredItem.city}</div>
+          <div className="weather__date">
+            {featuredItem.day}, {featuredItem.date}
+          </div>
+          <div className="weather__temp-container">
+            <img
+              src={getWeatherIcon(weatherData.weather_code)}
+              alt="weather icon"
+              className="weather__current-icon"
+            />
+            <div className="weather__temp">
+              {featuredItem.value}
+              {featuredItem.unit}
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="weather__info-container">
+        {regularItems.map((item, index) => (
+          <div key={index} className="weather__display-content">
+            <div className="weather__display-info">
               <span className="weather__label">{item.label}</span>
               <span className="weather__value">
                 {item.value}
                 {item.unit}
               </span>
             </div>
-          )}
-        </div>
-      ))}
-    </div>
+          </div>
+        ))}
+      </div>
+    </>
   );
 }
 
