@@ -20,7 +20,7 @@ function DailyForecast({ dailyForecast, unit }: DailyForecastProps) {
       <h3>7 Day Forecast</h3>
       <div className="weather__daily-grid">
         {Array.from({
-          length: Math.min(7, dailyForecast.maxTemp.length),
+          length: Math.min(9, dailyForecast.maxTemp.length),
         }).map((_, index) => {
           const date = new Date();
           date.setDate(date.getDate() + index);
