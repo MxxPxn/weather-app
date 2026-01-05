@@ -69,6 +69,7 @@ export const fetchWeather = async (latitude: number, longitude: number) => {
     ],
     hourly: ["temperature_2m", "precipitation", "weather_code"],
     daily: ["temperature_2m_max", "temperature_2m_min", "precipitation_sum", "weather_code"],
+    forecast_days: 9,
     timezone: "auto",
   };
   const url = "https://api.open-meteo.com/v1/forecast";
