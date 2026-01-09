@@ -15,6 +15,11 @@ type SearchBarProps = {
             placeholder="Search for a place..."
             value={city}
             onChange={(e) => onCityChange(e.target.value)}
+            onKeyDown={(e) =>{
+              if(e.key === 'Enter'){
+                onSearch();
+              }
+            }}
           />
           <button className="weather__search-btn" onClick={onSearch}>
             Search 
