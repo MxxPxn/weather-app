@@ -39,3 +39,10 @@
 .weather__hourly-temp {
     font-weight: bold;
 }
+
+@media only screen and (min-width: 992px){
+    .weather__hourly-item {
+        width: 100%;
+        max-width: 100%;
+    }
+}

@@ -19,3 +19,24 @@
   background-color: #4658d9;
   box-sizing: border-box;
 }
+@media only screen and (min-width: 992px) {
+  .weather__search{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .weather__search-input {
+    font-size: 18px;
+    padding: 12px;
+    flex: 1;
+    max-width: 400px;
+  }
+  .weather__search-btn {
+    font-size: 18px;
+    padding: 12px;
+    margin: 0;
+    width: auto;
+  }
+}
