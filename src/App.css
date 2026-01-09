@@ -12,8 +12,6 @@
   box-sizing: border-box;
 }
 .weather__title {
-  height: 186px;
-  align-self: stretch;
   flex-grow: 0;
   font-size: 4rem;
   font-weight: bold;
@@ -80,4 +78,50 @@
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+@media only screen and (min-width: 992px){
+  /*Desktop*/
+  .weather__wrapper {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 32px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-auto-flow: dense;
+    gap: 24px;
+  }
+
+  .weather__header {
+    grid-column: 1 / -1;
+  }
+
+  .weather__title {
+    grid-column: 1 / -1;
+    margin: 0 auto;
+  }
+
+  .weather__search {
+    grid-column: 1 / -1;
+    max-width: 600px;
+    justify-self: center;
+    width: 100%;
+  }
+
+  .weather__featured-item {
+    grid-column: 1 / 2;
+  }
+
+  .weather__info-container {
+    grid-column: 1 / 2;
+  }
+
+  .weather__daily {
+    grid-column: 1 / 2;
+  }
+
+  .weather__hourly {
+    grid-column: 2 / 3;
+    grid-row: 4 / 8;
+    align-self: start;
+  }
 }
