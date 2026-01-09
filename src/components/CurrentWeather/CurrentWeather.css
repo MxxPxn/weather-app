@@ -58,3 +58,15 @@
     font-weight: bold;
 }
 
+@media only screen and (min-width: 992px){
+    .weather__info-container{
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+
+    .weather__display-content {
+        min-width: 0;
+        width: 100% ;
+        margin: 0;
+    }
+}
