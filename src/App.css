@@ -27,7 +27,8 @@
   color: #ff3b30;
   text-align: center;
   font-weight: 500;
-  margin: 16px 0;
+  margin: 16px auto;
+  max-width: 600px;
 }
 .weather__error p {
   margin: 0 0 12px 0;
@@ -86,6 +87,7 @@
     margin: 0 auto;
     padding: 32px;
     display: grid;
+    
     grid-template-columns: 2fr 1fr;
     grid-auto-flow: dense;
     gap: 24px;
@@ -103,6 +105,12 @@
   .weather__search {
     grid-column: 1 / -1;
     max-width: 600px;
+    justify-self: center;
+    width: 100%;
+  }
+
+  .weather__error {
+    grid-column: 1 / -1;
     justify-self: center;
     width: 100%;
   }
