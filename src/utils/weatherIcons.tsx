@@ -1,11 +1,11 @@
-import iconSunny from "../../assets/images/icon-sunny.webp";
-import iconPartlyCloudy from "../../assets/images/icon-partly-cloudy.webp";
-import iconOvercast from "../../assets/images/icon-overcast.webp";
-import iconRain from "../../assets/images/icon-rain.webp";
-import iconDrizzle from "../../assets/images/icon-drizzle.webp";
-import iconSnow from "../../assets/images/icon-snow.webp";
-import iconFog from "../../assets/images/icon-fog.webp";
-import iconStorm from "../../assets/images/icon-storm.webp";
+import iconSunny from "/assets/images/icon-sunny.webp";
+import iconPartlyCloudy from "/assets/images/icon-partly-cloudy.webp";
+import iconOvercast from "/assets/images/icon-overcast.webp";
+import iconRain from "/assets/images/icon-rain.webp";
+import iconDrizzle from "/assets/images/icon-drizzle.webp";
+import iconSnow from "/assets/images/icon-snow.webp";
+import iconFog from "/assets/images/icon-fog.webp";
+import iconStorm from "/assets/images/icon-storm.webp";
 
 
 export const getWeatherIcon = (code: number): string => {
